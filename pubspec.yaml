@@ -1,4 +1,4 @@
-name: foodieexpress
+name: pedulipanganv1
 description: A new Flutter project.
 publish_to: none
 version: 1.0.0+1
@@ -19,6 +19,7 @@ dependencies:
   
   # scan page
   camera: ^0.10.5+9 # Versi bisa bervariasi, gunakan versi terbaru
+  permission_handler: ^11.0.1 # Untuk meminta izin kamera
   image_picker: ^1.0.7 # Versi bisa bervariasi, gunakan versi terbaru
   path_provider: ^2.0.12
   path: ^1.8.2
@@ -40,7 +41,9 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/icons/
+    - assets/icons/icon/
+    - assets/icons/category/
+    - assets/icons/food/
   # CRITICAL ASSET MANAGEMENT RULES:
   # - DO NOT ADD NEW ASSET DIRECTORIES (assets/svg/, assets/icons/, etc.)
   # - ONLY USE EXISTING AND ITEMS AVAILABLE IN THE DIRECTORIES LISTED ABOVE (assets/, assets/images/)

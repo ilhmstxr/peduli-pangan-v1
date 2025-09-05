@@ -89,25 +89,24 @@ class FoodDescriptionPage extends StatelessWidget {
     return Column(
       children: [
         _buildInfoCard(
-          iconPath: 'assets/icons/food_plate.png',
+          iconPath: 'assets/icons/food/sate.png',
           title: 'Nama Makanan',
           value: 'Sate Ayam',
         ),
         const SizedBox(height: 16),
         _buildInfoCard(
-          iconPath: 'assets/icons/category.png',
+          iconPath: 'assets/icons/category/kulinerlokal.png',
           title: 'Kategori',
           value: 'Kuliner Lokal',
         ),
         const SizedBox(height: 16),
         _buildInfoCard(
-          iconPath: 'assets/icons/hourglass.png',
+          iconPath: 'assets/icons/icon/hourglass.png',
           title: 'Estimasi Umur Simpan',
           value: '± 4 jam sejak dibuat',
         ),
         const SizedBox(height: 16),
-        _buildStatusCard(
-            title: 'Status Konsumsi', value: 'Layak Dikonsumsi'),
+        _buildStatusCard(title: 'Status Konsumsi', value: 'Layak Dikonsumsi'),
         const SizedBox(height: 16),
         _buildQuoteCard(),
       ],
@@ -120,13 +119,16 @@ class FoodDescriptionPage extends StatelessWidget {
       children: [
         _buildNutritionCard('Kalori', '🔥 270 kcal', '*Total energi per porsi'),
         const SizedBox(height: 12),
-        _buildNutritionCard('Karbohidrat', '🍞 10g', '*Bisa disertai persen AKG'),
+        _buildNutritionCard(
+            'Karbohidrat', '🍞 10g', '*Bisa disertai persen AKG'),
         const SizedBox(height: 12),
-        _buildNutritionCard('Protein', '🍗 22g', '*Penting untuk konsumen sadar protein'),
+        _buildNutritionCard(
+            'Protein', '🍗 22g', '*Penting untuk konsumen sadar protein'),
         const SizedBox(height: 12),
         _buildNutritionCard('Lemak', '🧈 15g', ''),
         const SizedBox(height: 12),
-        _buildNutritionCard('Gula', '🍬 4g', '*Penting untuk konsumen diabetes'),
+        _buildNutritionCard(
+            'Gula', '🍬 4g', '*Penting untuk konsumen diabetes'),
         const SizedBox(height: 12),
         _buildNutritionCard('Sodium', '🧂 650mg', ''),
       ],
@@ -134,7 +136,10 @@ class FoodDescriptionPage extends StatelessWidget {
   }
 
   // Card info umum (nama makanan, kategori, dll)
-  Widget _buildInfoCard({required String iconPath, required String title, required String value}) {
+  Widget _buildInfoCard(
+      {required String iconPath,
+      required String title,
+      required String value}) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -146,14 +151,18 @@ class FoodDescriptionPage extends StatelessWidget {
         children: [
           Image.asset(iconPath, width: 24, height: 24),
           const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: const TextStyle(color: Colors.grey, fontSize: 12)),
-              const SizedBox(height: 2),
-              Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
-            ],
-          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title,
+                    style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                const SizedBox(height: 2),
+                Text(value,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -175,7 +184,8 @@ class FoodDescriptionPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+              Text(title,
+                  style: const TextStyle(color: Colors.grey, fontSize: 12)),
               const SizedBox(height: 2),
               Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
             ],
@@ -219,18 +229,20 @@ class FoodDescriptionPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              Text(value, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+              Text(value,
+                  style: const TextStyle(color: Colors.grey, fontSize: 12)),
             ],
           ),
           if (subtitle.isNotEmpty) ...[
             const SizedBox(height: 4),
-            Text(subtitle, style: const TextStyle(color: Colors.grey, fontSize: 10)),
+            Text(subtitle,
+                style: const TextStyle(color: Colors.grey, fontSize: 10)),
           ]
         ],
       ),
     );
   }
-  
+
   // Card untuk ingredients
   Widget _buildIngredientsCard() {
     return Container(
@@ -251,9 +263,18 @@ class FoodDescriptionPage extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Kolom pertama untuk label
               Text('Daging ayam\nBumbu Kacang', style: TextStyle(height: 1.5)),
               SizedBox(width: 8),
-              Text(': Daging Ayam\n: Kacang tanah, bawang, gula merah, cabai, garam', style: TextStyle(height: 1.5)),
+
+              // Kolom kedua untuk nilai (DIBUNGKUS EXPANDED)
+              Expanded(
+                // <-- TAMBAHKAN INI
+                child: Text(
+                  ': Daging Ayam\n: Kacang tanah, bawang, gula merah, cabai, garam',
+                  style: TextStyle(height: 1.5),
+                ),
+              ),
             ],
           )
         ],
@@ -283,7 +304,7 @@ class FoodDescriptionPage extends StatelessWidget {
             LayoutBuilder(
               builder: (context, constraints) {
                 // Persentase kesegaran (0.0 - 1.0)
-                const freshness = 0.69; 
+                const freshness = 0.69;
                 final redWidth = constraints.maxWidth * freshness;
                 final greenWidth = constraints.maxWidth * (1 - freshness);
 
@@ -315,7 +336,7 @@ class FoodDescriptionPage extends StatelessWidget {
                 );
               },
             ),
-             Positioned(
+            Positioned(
               left: 135, // Sesuaikan posisi handle
               top: -3,
               child: Container(

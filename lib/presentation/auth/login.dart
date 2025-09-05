@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
                     children: [
                       // Ganti 'assets/logo.png' dengan path logo Anda
                       Image.asset(
-                        'assets/logo.png',
+                        'assets/icons/icon/pedulipanganLengkap.png',
                         height: 60,
                       ),
                       const SizedBox(height: 8),

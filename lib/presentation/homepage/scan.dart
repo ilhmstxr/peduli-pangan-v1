@@ -9,7 +9,8 @@ class ScanPage extends StatefulWidget {
   State<ScanPage> createState() => _ScanPageState();
 }
 
-class _ScanPageState extends State<ScanPage> with SingleTickerProviderStateMixin {
+class _ScanPageState extends State<ScanPage>
+    with SingleTickerProviderStateMixin {
   CameraController? _cameraController;
   late List<CameraDescription> _cameras;
   Future<void>? _initializeControllerFuture;
@@ -61,7 +62,6 @@ class _ScanPageState extends State<ScanPage> with SingleTickerProviderStateMixin
     _animationController.repeat(reverse: false);
   }
 
-
   @override
   void dispose() {
     _cameraController?.dispose();
@@ -71,8 +71,7 @@ class _ScanPageState extends State<ScanPage> with SingleTickerProviderStateMixin
 
   // Fungsi untuk toggle flash
   void _toggleFlash() {
-    if (_cameraController != null &&
-        _cameraController!.value.isInitialized) {
+    if (_cameraController != null && _cameraController!.value.isInitialized) {
       setState(() {
         _isFlashOn = !_isFlashOn;
       });
@@ -102,19 +101,10 @@ class _ScanPageState extends State<ScanPage> with SingleTickerProviderStateMixin
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        // Background Gradient
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF2E7D32), Color(0xFF4CAF50)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
         child: Stack(
           children: [
             // Camera Preview
@@ -157,7 +147,11 @@ class _ScanPageState extends State<ScanPage> with SingleTickerProviderStateMixin
               ),
             );
           } else {
-            return const Center(child: Text('Kamera tidak tersedia.', style: TextStyle(color: Colors.white),));
+            return const Center(
+                child: Text(
+              'Kamera tidak tersedia.',
+              style: TextStyle(color: Colors.white),
+            ));
           }
         } else {
           return const Center(child: CircularProgressIndicator());
@@ -184,7 +178,8 @@ class _ScanPageState extends State<ScanPage> with SingleTickerProviderStateMixin
                 animation: _scanAnimation,
                 builder: (context, child) {
                   return Positioned(
-                    top: _scanAnimation.value * (MediaQuery.of(context).size.width * 0.7),
+                    top: _scanAnimation.value *
+                        (MediaQuery.of(context).size.width * 0.7),
                     left: 0,
                     right: 0,
                     child: Container(
@@ -225,7 +220,8 @@ class _ScanPageState extends State<ScanPage> with SingleTickerProviderStateMixin
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Scan', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: const Text('Scan',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
     );
@@ -233,36 +229,70 @@ class _ScanPageState extends State<ScanPage> with SingleTickerProviderStateMixin
 
   Widget _buildBottomControls() {
     return Positioned(
-      bottom: 40,
+      bottom: 40, // Jarak dari bawah
       left: 20,
       right: 20,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(30),
+          color: Colors.white.withOpacity(0.3), // Background transparan
+          borderRadius: BorderRadius.circular(30), // Bentuk pil/lonjong
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            // Gallery Button
-            IconButton(
-              icon: const Icon(Icons.photo_library, color: Colors.white, size: 30),
-              onPressed: _pickImageFromGallery,
-            ),
-            // Flash Button
-            IconButton(
-              icon: Icon(
-                _isFlashOn ? Icons.flash_on : Icons.flash_off,
+            // DIUBAH: Gallery Button dari IconButton menjadi GestureDetector
+            GestureDetector(
+              onTap: _pickImageFromGallery,
+              child: Image.asset(
+                'assets/icons/icon/gallery.png', // <-- Ganti dengan path gambar galeri Anda
                 color: Colors.white,
-                size: 30,
+                width: 30, // Gunakan width/height
+                height: 30,
               ),
-              onPressed: _toggleFlash,
             ),
-            // Take Picture Button
-            IconButton(
-              icon: const Icon(Icons.camera_alt, color: Colors.white, size: 30),
-              onPressed: _takePicture,
+
+            // TETAP SAMA: Tombol Scan Utama
+            GestureDetector(
+              onTap: _takePicture,
+              child: Container(
+                width: 65,
+                height: 65,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/icons/icon/scan.png',
+                      color: Colors.green[700],
+                      height: 35,
+                    ),
+                    if (_isFlashOn)
+                      Icon(
+                        Icons.flash_on,
+                        color: Colors.amber,
+                        size: 20,
+                      ),
+                  ],
+                ),
+              ),
+            ),
+
+            // DIUBAH: Camera Button dari IconButton menjadi GestureDetector
+            GestureDetector(
+              onTap: () {
+                // TODO: Fungsi untuk ganti kamera depan/belakang, atau lainnya
+                print("Camera switch button pressed (placeholder)");
+              },
+              child: Image.asset(
+                'assets/icons/icon/camera.png', // <-- Ganti dengan path gambar kamera Anda
+                color: Colors.white,
+                width: 30,
+                height: 30,
+              ),
             ),
           ],
         ),
