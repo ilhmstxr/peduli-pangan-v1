@@ -77,7 +77,7 @@ class FoodDescriptionPage extends StatelessWidget {
       ),
       flexibleSpace: FlexibleSpaceBar(
         background: Image.asset(
-          'assets/sate_ayam.png', // Ganti dengan path gambar Anda
+          'assets/icons/food/sate.png', // Ganti dengan path gambar Anda
           fit: BoxFit.cover,
         ),
       ),
