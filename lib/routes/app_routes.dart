@@ -10,7 +10,7 @@ import '../presentation/homepage/food_description.dart';
 
 class AppRoutes {
   // 4. Ubah nilai 'initial' ke rute halaman scan
-  static const String initial = home;
+  static const String initial = foodDescription;
 
   // Rute yang sudah ada
   // static const String start = '/';

@@ -43,7 +43,8 @@ flutter:
     - assets/images/
     - assets/icons/icon/
     - assets/icons/category/
-    - assets/icons/food/
+    - assets/images/food/
+    # - assets/icons/food/
   # CRITICAL ASSET MANAGEMENT RULES:
   # - DO NOT ADD NEW ASSET DIRECTORIES (assets/svg/, assets/icons/, etc.)
   # - ONLY USE EXISTING AND ITEMS AVAILABLE IN THE DIRECTORIES LISTED ABOVE (assets/, assets/images/)

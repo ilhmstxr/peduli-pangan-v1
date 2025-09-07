@@ -13,7 +13,7 @@ class FoodListSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 4.w),
       child: Column(
@@ -49,10 +49,17 @@ class FoodListSection extends StatelessWidget {
           ListView.builder(
             itemCount: foodItems.length,
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
+              final item = foodItems[index]; // Ambil data item
+              // Panggil FoodItemTile dengan parameter yang sudah disesuaikan
               return FoodItemTile(
-                item: foodItems[index],
+                imageUrl: item['image']!,
+                name: item['name']!,
+                pickupTime: item['pickupTime']!,
+                distance: item['distance']!,
+                price: item['price']!,
+                itemsLeft: item['itemsLeft']!,
               );
             },
           ),
