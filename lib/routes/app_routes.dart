@@ -7,6 +7,9 @@ import '../presentation/auth/login.dart';
 import '../presentation/auth/register.dart';
 import '../presentation/homepage/scan.dart';
 import '../presentation/homepage/food_description.dart';
+import '../presentation/transaction_detail_screen.dart';
+import '../presentation/order_screen.dart';
+import '../presentation/history_screen.dart';
 
 class AppRoutes {
   // 4. Ubah nilai 'initial' ke rute halaman scan
@@ -24,11 +27,17 @@ class AppRoutes {
   static const String scan = '/scan-page';
   static const String scan2 = '/scan-page-2';
   static const String foodDescription = '/food-description-page';
+  static const String transactionDetail = '/transaction-detail-screen';
+  static const String order = '/order-screen';
+  static const String history = '/history-screen';
 
   static Map<String, WidgetBuilder> routes = {
     // Rute yang sudah ada
     home: (context) => const HomeScreen(),
     restaurantDetail: (context) => const RestaurantDetailScreen(),
+    transactionDetail: (context) => const TransactionDetailScreen(),
+    order: (context) => const OrderScreen(),
+    history: (context) => const HistoryScreen(),
     restaurantDetailnew: (context) => const RestaurantDetailScreenNew(),
 
     // 3. Tambahkan rute baru Anda di sini
