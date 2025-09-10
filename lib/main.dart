@@ -22,6 +22,8 @@ void main() async {
   });
 }
 
+// INCOMING: supabase
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
