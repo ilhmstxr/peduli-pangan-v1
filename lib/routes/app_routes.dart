@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pedulipanganv1/presentation/homepage/scan2.dart';
+import '../presentation/homepage/scan2.dart';
+import '../presentation/restaurant_detail_screen_new/restaurant_detail_screen_new.dart';
 import '../presentation/home_screen/home_screen.dart';
 import '../presentation/restaurant_detail_screen/restaurant_detail_screen.dart';
 import '../presentation/auth/login.dart';
@@ -12,11 +13,13 @@ import '../presentation/history_screen.dart';
 
 class AppRoutes {
   // 4. Ubah nilai 'initial' ke rute halaman scan
-  static const String initial = scan2;
+  static const String initial = order;
 
   // Rute yang sudah ada
+  // static const String start = '/';
   static const String home = '/home-screen';
   static const String restaurantDetail = '/restaurant-detail-screen';
+  static const String restaurantDetailnew = '/restaurant-detail-screen-new';
 
   // 2. Definisikan nama rute untuk halaman baru Anda
   static const String login = '/login-page';
@@ -35,6 +38,7 @@ class AppRoutes {
     transactionDetail: (context) => const TransactionDetailScreen(),
     order: (context) => const OrderScreen(),
     history: (context) => const HistoryScreen(),
+    restaurantDetailnew: (context) => const RestaurantDetailScreenNew(),
 
     // 3. Tambahkan rute baru Anda di sini
     login: (context) => const LoginPage(),
