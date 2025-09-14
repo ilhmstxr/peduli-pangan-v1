@@ -1,164 +1,116 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_auth_ui/supabase_auth_ui.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class RegisterPage extends StatefulWidget {
+import 'account.dart';
+import 'login.dart';
+
+/// Register screen using Supabase Auth UI.
+/// Catatan: `SupaEmailAuth` menampilkan form Sign In/Sign Up dalam widget yang sama.
+/// Halaman ini difokuskan untuk pendaftaran, dengan field metadata tambahan.
+class RegisterPage extends ConsumerWidget {
   const RegisterPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
-  // Variabel state untuk mengatur visibilitas password
-  bool _isPasswordVisible = false;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        // Tombol Kembali
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          style: IconButton.styleFrom(
-            backgroundColor: const Color(0xFF388E3C), // Warna hijau
-          ),
-          onPressed: () {
-            // Aksi untuk kembali, misalnya Navigator.pop(context)
-          },
-        ),
-        // Judul
-        title: const Text(
-          'Register',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        // Logo di kanan
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: Image.asset(
-              'assets/icons/icon/pedulipanganLengkap.png', // Ganti dengan path logo Anda
-              height: 40,
-            ),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text('Daftar')),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Sub-judul
-                const Text(
-                  'Please enter your email to create a new account',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(height: 32),
-
-                // Form Email
-                const Text(
-                  'Email',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Color(0xFF388E3C)),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 24),
-
-                // Form Password
-                const Text(
-                  'Password',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                TextField(
-                  // Gunakan state untuk mengatur obscureText
-                  obscureText: !_isPasswordVisible,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your password',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Color(0xFF388E3C)),
-                    ),
-                    // Ikon untuk toggle visibilitas password
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                        color: Colors.grey,
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 420),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 24),
+                  SupaEmailAuth(
+                    redirectTo: kIsWeb ? null : 'io.pedulipangan.app://auth-callback',
+                    // Tambahkan metadata untuk dibuatkan profil nanti / tersimpan di user metadata
+                    metadataFields: [
+                      MetaDataField(
+                        prefixIcon: const Icon(Icons.person),
+                        label: 'Nama tampilan',
+                        key: 'display_name',
+                        validator: (val) {
+                          if (val == null || val.isEmpty) {
+                            return 'Wajib diisi';
+                          }
+                          return null;
+                        },
                       ),
-                      onPressed: () {
-                        // Update state ketika ikon ditekan
-                        setState(() {
-                          _isPasswordVisible = !_isPasswordVisible;
+                      MetaDataField(
+                        prefixIcon: const Icon(Icons.link),
+                        label: 'Website (opsional)',
+                        key: 'website',
+                      ),
+                    ],
+                    onSignUpComplete: (response) async {
+                      final sb = Supabase.instance.client;
+                      final user = response.user ?? sb.auth.currentUser;
+                      if (user == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Pendaftaran berhasil. Periksa email verifikasi.'),
+                          ),
+                        );
+                        return;
+                      }
+                      // Upsert profil minimal ke tabel 'profiles' (quickstart pattern).
+                      final metadata = response.user?.userMetadata ?? {};
+                      final displayName = (metadata['display_name'] ?? '') as String;
+                      final website = (metadata['website'] ?? '') as String?;
+
+                      try {
+                        await sb.from('profiles').upsert({
+                          'id': user.id,
+                          'username': displayName.isEmpty ? user.email?.split('@').first : displayName,
+                          'website': website,
+                          'updated_at': DateTime.now().toIso8601String(),
                         });
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 48),
+                      } catch (_) {
+                        // tidak fatal; bisa diperbaiki dari AccountPage.
+                      }
 
-                // Tombol Register
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Tambahkan logika registrasi di sini
+                      if (context.mounted) {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (_) => const AccountPage()),
+                          (route) => false,
+                        );
+                      }
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF388E3C), // Warna hijau
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: const Text(
-                      'Register',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
+                    onSignInComplete: (response) async {
+                      // Jika user menekan toggle "Masuk" dari halaman ini.
+                      if (response.session != null) {
+                        if (context.mounted) {
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (_) => const AccountPage()),
+                            (route) => false,
+                          );
+                        }
+                      }
+                    },
                   ),
-                ),
-              ],
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Sudah punya akun?'),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => const LoginPage()),
+                          );
+                        },
+                        child: const Text('Masuk'),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -29,33 +29,35 @@ class AppRoutes {
   // ================================================================
   // >> Konstanta Nama Rute (Static)
   // ================================================================
-  static const String home = '/home-screen';
-  static const String restaurantDetail = '/restaurant-detail-screen';
-  static const String restaurantDetailnew = '/restaurant-detail-screen-new';
-  static const String login = '/login-page';
-  static const String register = '/register-page';
-  static const String scan = '/scan-page';
-  static const String scan2 = '/scan-page-2';
-  static const String foodDescription = '/food-description-page';
-  static const String transactionDetail = '/transaction-detail-screen';
-  static const String order = '/order-screen';
-  static const String history = '/history-screen';
+  // static const String home = '/home-screen';
+  // static const String restaurantDetail = '/restaurant-detail-screen';
+  // static const String restaurantDetailnew = '/restaurant-detail-screen-new';
+  // static const String login = '/login-page';
+  // static const String register = '/register-page';
+  // static const String scan = '/scan-page';
+  // static const String scan2 = '/scan-page-2';
+  // static const String foodDescription = '/food-description-page';
+  // static const String transactionDetail = '/transaction-detail-screen';
+  // static const String order = '/order-screen';
+  // static const String history = '/history-screen';
+
+  
 
   // ================================================================
   // >> Definisi Rute Statis
   // ================================================================
   static final Map<String, WidgetBuilder> routes = {
     // Rute yang tidak memerlukan argumen
-    home: (context) => const HomeScreen(),
-    transactionDetail: (context) => const TransactionDetailScreen(),
-    order: (context) => const OrderScreen(),
-    history: (context) => const HistoryScreen(),
-    restaurantDetailnew: (context) => const RestaurantDetailScreenNew(),
-    login: (context) => const LoginPage(),
-    register: (context) => const RegisterPage(),
-    scan: (context) => const ScanPage(),
-    scan2: (context) => const ScanPage2(),
-    foodDescription: (context) => const FoodDescriptionPage(),
+    // home: (context) => const HomeScreen(),
+    // transactionDetail: (context) => const TransactionDetailScreen(),
+    // order: (context) => const OrderScreen(),
+    // history: (context) => const HistoryScreen(),
+    // restaurantDetailnew: (context) => const RestaurantDetailScreenNew(),
+    // login: (context) => const LoginPage(),
+    // register: (context) => const RegisterPage(),
+    // scan: (context) => const ScanPage(),
+    // scan2: (context) => const ScanPage2(),
+    // foodDescription: (context) => const FoodDescriptionPage(),
     // restaurantDetail: (context) => const RestaurantDetailScreen(),
   };
 

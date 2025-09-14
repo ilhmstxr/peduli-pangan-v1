@@ -36,6 +36,7 @@ dependencies:
   flutter_riverpod: ^3.0.0
   riverpod: ^3.0.0
   flutter_dotenv: ^6.0.0
+  supabase_auth_ui: ^0.5.5
 
 dev_dependencies:
   flutter_test: # CRITICAL: Required for Flutter project testing - DO NOT REMOVE
