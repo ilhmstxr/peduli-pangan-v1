@@ -3,7 +3,7 @@ import '../alamat/application/alamat_list_vm.dart';
 import '../alamat/application/alamat_form_vm.dart';
 
 class AlamatRoutes {
-  static const String list = '/alamates';
+  static const String list = '/alamat';
   static const String form = '/alamates/form';
 
   static Map<String, WidgetBuilder> getRoutes() {
