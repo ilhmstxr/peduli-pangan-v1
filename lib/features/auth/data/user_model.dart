@@ -1,50 +1,57 @@
-import '../../shared/helpers/helper.dart';
+import 'package:meta/meta.dart';
 
-// pengguna
+@immutable
 class Pengguna {
   final int id;
   final String name;
   final String email;
-  final String passwordHash; // disimpan hash
-  final String? username;
-  final String role; // varchar(20)
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+  final String? username; // opsional, mengikuti skema
+  final String role;
+  final DateTime createdAt;
+  final DateTime updatedAt;
   final DateTime? deletedAt;
+
+  /// Hanya untuk data layer (jangan expose ke UI).
+  final String? passwordHash;
 
   const Pengguna({
     required this.id,
     required this.name,
     required this.email,
-    required this.passwordHash,
-    this.username,
     required this.role,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
+    this.username,
     this.deletedAt,
+    this.passwordHash,
   });
 
-  factory Pengguna.fromMap(Map<String, dynamic> m) => Pengguna(
-        id: m['id'] as int,
-        name: m['name'] as String,
-        email: m['email'] as String,
-        passwordHash: m['password_hash'] as String,
-        username: cast<String>(m['username']),
-        role: m['role'] as String,
-        createdAt: toDate(m['created_at']),
-        updatedAt: toDate(m['updated_at']),
-        deletedAt: toDate(m['deleted_at']),
-      );
+  Pengguna copyWith({
+    int? id,
+    String? name,
+    String? email,
+    String? username,
+    String? role,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? deletedAt,
+    String? passwordHash,
+  }) {
+    return Pengguna(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      username: username ?? this.username,
+      role: role ?? this.role,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      passwordHash: passwordHash ?? this.passwordHash,
+    );
+  }
 
-  Map<String, dynamic> toMap() => {
-        'id': id,
-        'name': name,
-        'email': email,
-        'password_hash': passwordHash,
-        'username': username,
-        'role': role,
-        'created_at': createdAt?.toIso8601String(),
-        'updated_at': updatedAt?.toIso8601String(),
-        'deleted_at': deletedAt?.toIso8601String(),
-      };
+  @override
+  bool operator ==(Object o) => o is Pengguna && o.id == id;
+  @override
+  int get hashCode => id.hashCode;
 }
