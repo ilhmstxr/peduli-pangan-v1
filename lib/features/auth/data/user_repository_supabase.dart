@@ -2,7 +2,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../shared/providers/supabase_providers.dart'; // pastikan ada
+import '../../shared/providers/supabase_providers.dart';
 import 'user_mapper.dart';
 import 'user_model.dart';
 import 'user_repository.dart';
@@ -13,9 +13,14 @@ class SupabaseUserRepository implements UserRepository {
 
   static const _table = 'pengguna';
 
-  PostgrestFilterBuilder<PostgrestList> _baseSelectList({
-    bool includeDeleted = false,
-  }) {
+  /// Query dasar untuk LIST (banyak baris)
+  PostgrestFilterBuilder _baseSelectList({bool includeDeleted = false}) {
+    final q = _sb.from(_table).select();
+    return includeDeleted ? q : q.isFilter('deleted_at', null);
+  }
+
+  /// Query dasar untuk SINGLE (satu baris)
+  PostgrestFilterBuilder _baseSelect({bool includeDeleted = false}) {
     final q = _sb.from(_table).select();
     return includeDeleted ? q : q.isFilter('deleted_at', null);
   }
@@ -28,10 +33,10 @@ class SupabaseUserRepository implements UserRepository {
     bool includeDeleted = false,
     String? role,
   }) async {
-    var q = _baseSelectList(includeDeleted: includeDeleted)
-        .order('created_at', ascending: false)
-        .range(offset, offset + limit - 1);
+    // Mulai dari FilterBuilder
+    PostgrestFilterBuilder q = _baseSelectList(includeDeleted: includeDeleted);
 
+    // Lakukan SEMUA filter di sini (masih FilterBuilder)
     if (query != null && query.trim().isNotEmpty) {
       final term = query.trim();
       q = q.or('name.ilike.%$term%,username.ilike.%$term%,email.ilike.%$term%');
@@ -40,7 +45,12 @@ class SupabaseUserRepository implements UserRepository {
       q = q.eq('role', role);
     }
 
-    final rows = await q; // -> PostgrestList
+    // Setelah filter selesai, baru transform (order/range)
+    final t = (q as PostgrestTransformBuilder)
+        .order('created_at', ascending: false)
+        .range(offset, offset + limit - 1);
+
+    final rows = await t; // -> PostgrestList (List<dynamic>/List<Map>)
     return (rows as List)
         .cast<Map<String, dynamic>>()
         .map(UserMapper.fromRow)
@@ -59,11 +69,11 @@ class SupabaseUserRepository implements UserRepository {
   @override
   Future<Pengguna?> getByEmail(String email,
       {bool includeDeleted = false}) async {
-    final rows = await _baseSelect(includeDeleted: includeDeleted)
+    final row = await _baseSelect(includeDeleted: includeDeleted)
         .ilike('email', email)
         .maybeSingle();
-    if (rows == null) return null;
-    return UserMapper.fromRow(rows as Map<String, dynamic>);
+    if (row == null) return null;
+    return UserMapper.fromRow(row as Map<String, dynamic>);
   }
 
   @override
@@ -83,8 +93,10 @@ class SupabaseUserRepository implements UserRepository {
 
   @override
   Future<void> softDelete(int id) async {
-    await _sb.from(_table).update(
-        {'deleted_at': DateTime.now().toUtc().toIso8601String()}).eq('id', id);
+    await _sb
+        .from(_table)
+        .update({'deleted_at': DateTime.now().toUtc().toIso8601String()})
+        .eq('id', id);
   }
 
   @override
