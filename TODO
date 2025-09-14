@@ -1,0 +1,56 @@
+all
+- benerin state management
+- testing state management
+- benerin database
+- sambungin database
+- testing database
+- sambungin tflite
+- testing scanning & hasil
+- transaksi
+
+STRUX
+- PROGRESS benerin state management
+route
+viewmodel
+model
+repository
+view
+
+
+
+- CHECK models
+
+- product
+- merchant
+- transaksi
+- kategori
+- user 
+- alamat
+- pembayaran
+- order items
+
+fitur fitur yang dibuat duluan
+- detail product
+- detail merchant 
+- cart 
+- transaksi (pembayaran)
+- order item (detail transaksi)
+
+
+- PROGRESS testing state management
+
+    home: (context) => const HomeScreen(),
+    transactionDetail: (context) => const TransactionDetailScreen(),
+    order: (context) => const OrderScreen(),
+    history: (context) => const HistoryScreen(),
+    restaurantDetailnew: (context) => const RestaurantDetailScreenNew(),
+
+    // 3. Tambahkan rute baru Anda di sini
+    login: (context) => const LoginPage(),
+    register: (context) => const RegisterPage(),
+    scan: (context) => const ScanPage(),
+    scan2: (context) => const ScanPage2(),
+    foodDescription: (context) => const FoodDescriptionPage(),
+
+
+    
