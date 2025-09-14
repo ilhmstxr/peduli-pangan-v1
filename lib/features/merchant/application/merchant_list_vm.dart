@@ -1,46 +1,52 @@
-// application/merchant_list_vm.dart
-import '../data/merchant_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pedulipanganv1/features/merchant/application/merchant_filters.dart';
+import 'merchant_list_state.dart';
 import '../data/merchant_repository.dart';
-import 'merchant_filters.dart';
-import 'merchant_state.dart';
+import '../data/merchant_providers.dart';
+// import '../application/merchant_filters.dart';
 
-class MerchantListVm {
-  final MerchantRepository repo;
+/// Provider untuk List VM (Riverpod v3)
+final merchantListVMProvider =
+    NotifierProvider<MerchantListVm, MerchantListState>(MerchantListVm.new);
 
-  MerchantState _state = const MerchantState();
-  MerchantState get state => _state;
+class MerchantListVm extends Notifier<MerchantListState> {
+  @override
+  MerchantListState build() {
+    state = const MerchantListState(loading: true);
+    _load();
+    return state;
+  }
 
-  MerchantFilters _filters = const MerchantFilters(limit: 20, page: 1);
-  MerchantFilters get filters => _filters;
-
-  MerchantListVm(this.repo);
-
-  Future<void> load({MerchantFilters? filters}) async {
-    _state = _state.copyWith(loading: true, error: null);
-    if (filters != null) _filters = filters;
+  Future<void> _load() async {
+    final repo = ref.read(merchantRepositoryProvider);
     try {
-      final data = await repo.listMerchants(_filters);
-      _state = _state.copyWith(loading: false, items: data);
+      // Sesuaikan signature repo-mu:
+      // Jika listMerchants(MerchantFilters filters), kirim state.filters.
+      final items = await repo.listMerchants(state.filters);
+
+      if (!ref.mounted) return;
+      state = state.copyWith(
+        loading: false,
+        error: null,
+        items: items,
+      );
     } catch (e) {
-      _state = _state.copyWith(loading: false, error: e.toString());
+      if (!ref.mounted) return;
+      state = state.copyWith(
+        loading: false,
+        error: e.toString(),
+      );
     }
   }
 
-  Future<void> refresh() => load(filters: _filters);
-
-  void updateFilter(MerchantFilters Function(MerchantFilters) updater) {
-    _filters = updater(_filters);
+  Future<void> refresh() async {
+    state = state.copyWith(loading: true, error: null);
+    await _load();
   }
 
-  /// Optimistic remove
-  Future<void> delete(int id) async {
-    final previous = _state.items;
-    _state = _state.copyWith(items: previous.where((m) => m.id != id).toList());
-    try {
-      await repo.deleteMerchant(id);
-    } catch (e) {
-      // rollback
-      _state = _state.copyWith(error: e.toString(), items: previous);
-    }
+  /// Optional: update filters lalu muat ulang
+  void setFilters(MerchantFilters filters) {
+    state = state.copyWith(filters: filters);
+    refresh();
   }
 }

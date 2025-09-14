@@ -1,4 +1,6 @@
 // Order Repository Abstract
+import '../data/order_model.dart';
+
 abstract class OrderRepository {
   Future<List<OrderModel>> fetchOrders();
   Future<OrderModel?> getOrderById(String id);

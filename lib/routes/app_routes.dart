@@ -55,7 +55,8 @@ class AppRoutes {
     // restaurantDetailnew: (context) => const RestaurantDetailScreenNew(),
     // login: (context) => const LoginPage(),
     // register: (context) => const RegisterPage(),
-    // scan: (context) => const ScanPage(),
+    // scan: (context) => const 
+    // \(),
     // scan2: (context) => const ScanPage2(),
     // foodDescription: (context) => const FoodDescriptionPage(),
     // profile: (context) => const ProfileScreen(),
@@ -71,13 +72,13 @@ class AppRoutes {
   static final List<FeatureRoute> _featureRoutes = [
     UserRoutes(),
     AlamatRoutes(),
-    CartRoutes(),
-    KategoriRoutes(),
+    // CartRoutes(),
+    // KategoriRoutes(),
     MerchantRoutes(),
-    OrderRoutes(),
-    PembayaranRoutes(),
+    // OrderRoutes(),
+    // PembayaranRoutes(),
     ProductRoutes(),
-    ReviewRoutes(),
+    // ReviewRoutes(),
     // Tambahkan feature route lain di sini 
   ];
 

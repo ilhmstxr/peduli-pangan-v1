@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../shared/providers/supabase_providers.dart';
+import '../../../core/providers/supabase_providers.dart';
 
 enum ProductEventType { insert, update, delete }
 

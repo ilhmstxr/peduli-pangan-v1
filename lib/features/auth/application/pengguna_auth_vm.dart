@@ -2,7 +2,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../shared/providers/supabase_providers.dart';
+import '../../../core/providers/supabase_providers.dart';
 import '../data/pengguna_model.dart';
 import '../data/pengguna_repository.dart';
 import '../data/pengguna_repository_supabase.dart';
