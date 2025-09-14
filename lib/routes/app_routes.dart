@@ -13,7 +13,7 @@ import '../presentation/history_screen.dart';
 
 class AppRoutes {
   // 4. Ubah nilai 'initial' ke rute halaman scan
-  static const String initial = order;
+  static const String initial = register;
 
   // Rute yang sudah ada
   // static const String start = '/';
@@ -33,8 +33,8 @@ class AppRoutes {
 
   static Map<String, WidgetBuilder> routes = {
     // Rute yang sudah ada
+    // restaurantDetail: (context) => const RestaurantDetailScreen(),
     home: (context) => const HomeScreen(),
-    restaurantDetail: (context) => const RestaurantDetailScreen(),
     transactionDetail: (context) => const TransactionDetailScreen(),
     order: (context) => const OrderScreen(),
     history: (context) => const HistoryScreen(),
