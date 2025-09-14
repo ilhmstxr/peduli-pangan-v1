@@ -80,8 +80,8 @@ Future<void> main() async {
 
   // 🚨 CRITICAL: Supabase initialize
   await Supabase.initialize(
-    url: 'YOUR_SUPABASE_URL',
-    anonKey: 'YOUR_SUPABASE_PUBLISHABLE_KEY',
+    url: 'https://kttusitwmhdpnjwtqfgn.supabase.co',
+    anonKey: 'sb_publishable_l7bUvCpymXmhQj3VEYd3rg_1S8iU42Q',
   );
 
   runApp(

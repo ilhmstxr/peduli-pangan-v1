@@ -15,19 +15,17 @@ class KategoriRepositorySupabase implements KategoriRepository {
     int limit = 50,
     int offset = 0,
   }) async {
-    final filter = <String, String>{};
+    // Penting: ketik eksplisit PostgrestFilterBuilder
+    PostgrestFilterBuilder query = client.from(KategoriMapper.table).select();
 
     if (search != null && search.trim().isNotEmpty) {
-      filter['name'] = 'ilike.%${search.trim()}%';
+      query = query.ilike(KategoriMapper.colName, '%${search.trim()}%');
     }
     if (parentId != null) {
-      filter['parent_id'] = 'eq.$parentId';
+      query = query.eq(KategoriMapper.colParentId, parentId);
     }
 
-    final rows = await client
-        .from(KategoriMapper.table)
-        .select()
-        .withFilters(filter)
+    final rows = await query
         .order(KategoriMapper.colId, ascending: true)
         .range(offset, offset + limit - 1);
 
