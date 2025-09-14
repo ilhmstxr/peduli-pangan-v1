@@ -24,7 +24,7 @@ import '../features/review/review_routes.dart';
 import '../core/feature_route.dart';
 
 class AppRoutes {
-  static const String initial = register;
+  static const String initial = home;
 
   // ================================================================
   // >> Konstanta Nama Rute (Static)

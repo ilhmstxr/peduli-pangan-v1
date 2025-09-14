@@ -38,41 +38,56 @@ class ProductRoutes implements FeatureRoute {
       );
     }
 
-    // /produk/new  (create)
-    if (name == create) {
+    // =========================
+    // /produk/:id  -> DETAIL
+    // =========================
+    final segs = uri.pathSegments;
+    if (segs.length >= 2 && segs.first == 'produk') {
+      // ambil segmen ke-2 sebagai id (biarkan string agar fleksibel)
+      final id = segs[1];
       final args = settings.arguments;
+
       return MaterialPageRoute(
-        builder: (_) => ProductFormScreen(args: args),
+        builder: (_) => ProductDetailScreen(id: id, args: args),
         settings: settings,
       );
     }
 
+    // /produk/new  (create)
+    // if (name == create) {
+    //   final args = settings.arguments;
+    //   return MaterialPageRoute(
+    //     builder: (_) => ProductFormScreen(args: args),
+    //     settings: settings,
+    //   );
+    // }
+
     // Pola dinamis:
     // /produk/:id
     // /produk/:id/edit
-    final segs = uri.pathSegments;
-    if (segs.isNotEmpty && segs.first == 'produk') {
-      // Harus minimal 2 segmen: ['produk', ':id', ...]
-      if (segs.length >= 2) {
-        final id = segs[1];
-        final isEdit = segs.length >= 3 && segs[2] == 'edit';
-        final args = settings.arguments;
+    // final segs = uri.pathSegments;
+    // if (segs.isNotEmpty && segs.first == 'produk') {
+    //   // Harus minimal 2 segmen: ['produk', ':id', ...]
+    //   if (segs.length >= 2) {
+    //     final id = segs[1];
+    //     final isEdit = segs.length >= 3 && segs[2] == 'edit';
+    //     final args = settings.arguments;
 
-        if (isEdit) {
-          // /produk/:id/edit  -> Form edit
-          return MaterialPageRoute(
-            builder: (_) => ProductFormScreen(id: id, args: args),
-            settings: settings,
-          );
-        }
+    //     if (isEdit) {
+    //       // /produk/:id/edit  -> Form edit
+    //       return MaterialPageRoute(
+    //         builder: (_) => ProductFormScreen(id: id, args: args),
+    //         settings: settings,
+    //       );
+    //     }
 
-        // /produk/:id  -> Detail
-        return MaterialPageRoute(
-          builder: (_) => ProductDetailScreen(id: id, args: args),
-          settings: settings,
-        );
-      }
-    }
+    //     // /produk/:id  -> Detail
+    //     return MaterialPageRoute(
+    //       builder: (_) => ProductDetailScreen(id: id, args: args),
+    //       settings: settings,
+    //     );
+    //   }
+    // }
 
     // Tidak dikenali -> null biar fallback ke router global
     return null;
