@@ -19,14 +19,23 @@ view
 
 
 - CHECK models
+
 - product
 - merchant
-- kategori
 - transaksi
+- kategori
 - user 
 - alamat
 - pembayaran
 - order items
+
+fitur fitur yang dibuat duluan
+- detail product
+- detail merchant 
+- cart 
+- transaksi (pembayaran)
+- order item (detail transaksi)
+
 
 - PROGRESS testing state management
 

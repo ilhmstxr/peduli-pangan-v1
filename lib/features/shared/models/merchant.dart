@@ -2,7 +2,7 @@
 // lib/models/merchant.dart
 // Revisi: tambah toJson, copyWith, equality, dan fromJson yang robust untuk nested products
 
-import '../../products/data/product_model.dart';
+import '../../produk/data/product_model.dart';
 
 class Merchant {
   final int id;

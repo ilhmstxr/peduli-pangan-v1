@@ -1,5 +1,5 @@
-import '../../products/data/product_model.dart';
-import '../../products/data/product_filters.dart';
+import '../data/product_model.dart';
+import '../data/product_filters.dart';
 
 class ProductState {
   final List<Product> items;

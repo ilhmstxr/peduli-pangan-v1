@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../products/data/product_repository.dart';
-import '../../products/data/product_repository_supabase.dart';
-import '../../products/data/product_filters.dart';
-import '../../products/data/product_mapper.dart';
-import '../../products/data/product_model.dart';
-import '../application/product_state.dart';
-import '../../products/data/product_realtime_source.dart';
+import '../data/product_repository.dart';
+import '../data/product_repository_supabase.dart';
+import '../data/product_filters.dart';
+import '../data/product_mapper.dart';
+import '../data/product_model.dart';
+import 'product_state.dart';
+import '../data/product_realtime_source.dart';
 
 final productListVMProvider =
     NotifierProvider<ProductListVM, ProductState>(ProductListVM.new);

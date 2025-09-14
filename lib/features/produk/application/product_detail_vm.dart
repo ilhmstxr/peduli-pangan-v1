@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../products/data/product_model.dart';
-import '../../products/data/product_repository_supabase.dart';
-import '../../products/data/product_repository.dart';
+import '../data/product_model.dart';
+import '../data/product_repository_supabase.dart';
+import '../data/product_repository.dart';
 
 final productDetailVMProvider =
     AsyncNotifierProvider<ProductDetailVM, AsyncValue<Product?>>(
