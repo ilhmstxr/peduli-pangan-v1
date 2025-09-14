@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../shared/errors/failures.dart';
 import '../../shared/providers/supabase_providers.dart';
 import 'product_model.dart';
-import 'product_filters.dart';
+import '../application/product_filters.dart';
 import 'product_repository.dart';
 
 final productRepositoryProvider = Provider<ProductRepository>((ref) {

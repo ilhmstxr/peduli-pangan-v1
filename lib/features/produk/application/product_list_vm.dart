@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/product_repository.dart';
 import '../data/product_repository_supabase.dart';
-import '../data/product_filters.dart';
+import 'product_filters.dart';
 import '../data/product_mapper.dart';
 import '../data/product_model.dart';
 import 'product_state.dart';

@@ -1,4 +1,5 @@
-1) Pengguna (User)
+1) Pengguna (User) 
+CHECK
 
 12–14 file
 
@@ -7,9 +8,11 @@ Application (4–5): user_profile_vm.dart, user_auth_vm.dart (jika handle login/
 Presentation (3–4): user_profile_screen.dart, user_form_screen.dart*, widgets/user_avatar.dart*
 Routing (1): user_routes.dart
 
+
 Catatan: kalau autentikasi pakai Supabase Auth UI, beberapa screen bisa dipangkas.
 
-2) Alamat (Address)
+2) Alamat (Address) 
+DONE list 
 
 9–11 file (lebih sederhana)
 
@@ -19,6 +22,7 @@ Presentation (2–3): address_list_screen.dart, address_form_screen.dart, widget
 Routing (1): address_routes.dart
 
 3) Merchant
+DONE list
 
 12–16 file (fitur penuh)
 
@@ -27,8 +31,10 @@ Application (4–5): merchant_list_vm.dart, merchant_detail_vm.dart, merchant_fo
 Presentation (3–4): merchant_list_screen.dart, merchant_detail_screen.dart, merchant_form_screen.dart, widgets/merchant_card.dart*
 Routing (1): merchant_routes.dart
 
+
 CATALOG
 4) Kategori
+DONE list
 
 10–12 file
 
@@ -38,7 +44,7 @@ Presentation (3–4): category_list_screen.dart, category_form_screen.dart, widg
 Routing (1): category_routes.dart
 
 5) Produk (Product)
-
+DONE list
 14–18 file (paling ramai)
 
 Data (4–5): product_model.dart, product_repository.dart, product_repository_supabase.dart, product_mapper.dart*, product_realtime_source.dart*
@@ -47,7 +53,7 @@ Presentation (4–5): product_list_screen.dart, product_detail_screen.dart, prod
 Routing (1): product_routes.dart
 
 6) GambarProduk (ProductImage) (subfitur Produk)
-
+BUG gpt ulang
 Jika dipisah: 8–10 file. Namun lebih efektif digabung ke fitur Produk:
 Digabung: file tambahan cukup data/product_image_model.dart, application/product_image_vm.dart*, widgets/product_image_uploader.dart.
 Dipisah penuh (jika ada galeri & moderasi): tambah image_list_screen.dart, image_repository[_supabase].dart, dsb.
@@ -59,12 +65,14 @@ Dipisah penuh (jika ada galeri & moderasi): tambah image_list_screen.dart, image
 Data (3–4): review_model.dart, review_repository.dart, review_repository_supabase.dart, review_mapper.dart*
 Application (3–4): review_list_vm.dart (by product), review_form_vm.dart, review_state.dart*
 Presentation (3–4): widgets/review_tile.dart, review_list_screen.dart*, review_form_sheet.dart
-Routing (0–1): seringnya tanpa route sendiri (embed di Product Detail). Jika perlu: review_routes.dart
+
+// BUG
+Routing (0–1): seringnya tanpa route sendiri (embed di Product Detail). Jika perlu: review_routes.dart  
 
 
 COMMERCE
 8) Pemesanan (Order)
-
+DONE list
 14–18 file
 
 Data (4–5): order_model.dart, order_repository.dart, order_repository_supabase.dart, order_mapper.dart*, order_realtime_source.dart*
@@ -81,7 +89,7 @@ Presentation (2): widgets/order_item_tile.dart, widgets/order_item_editor.dart
 Routing (0): tidak perlu
 
 10) Pembayaran (Payment)
-
+DONE list
 10–14 file (tergantung integrasi gateway)
 
 Data (3–4): payment_model.dart, payment_repository.dart, payment_repository_supabase.dart (atau service ke gateway), payment_mapper.dart*

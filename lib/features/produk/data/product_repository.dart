@@ -1,5 +1,5 @@
 import 'product_model.dart';
-import 'product_filters.dart';
+import '../application/product_filters.dart';
 
 abstract class ProductRepository {
   Future<List<Product>> list(ProductFilters filters);
