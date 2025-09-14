@@ -330,7 +330,8 @@ class AppTheme {
           top: Radius.circular(20.0),
         ),
       ),
-    ), dialogTheme: DialogThemeData(backgroundColor: dialogLight),
+    ),
+    dialogTheme: DialogThemeData(backgroundColor: dialogLight),
   );
 
   /// Dark theme optimized for food delivery experience
@@ -603,7 +604,8 @@ class AppTheme {
           top: Radius.circular(20.0),
         ),
       ),
-    ), dialogTheme: DialogThemeData(backgroundColor: dialogDark),
+    ),
+    dialogTheme: DialogThemeData(backgroundColor: dialogDark),
   );
 
   /// Helper method to build text theme based on brightness using Inter font
