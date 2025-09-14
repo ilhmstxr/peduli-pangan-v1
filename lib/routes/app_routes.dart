@@ -4,6 +4,8 @@ import '../presentation/restaurant_detail_screen/restaurant_detail_screen.dart';
 import '../presentation/transaction_detail_screen.dart';
 import '../presentation/order_screen.dart';
 import '../presentation/history_screen.dart';
+import 'package:peduli_pangan_v1/presentation/profile_screen.dart';
+import 'package:peduli_pangan_v1/presentation/edit_profile_screen.dart';
 
 class AppRoutes {
   // TODO: Add your routes here
@@ -21,6 +23,8 @@ class AppRoutes {
     transactionDetail: (context) => const TransactionDetailScreen(),
     order: (context) => const OrderScreen(),
     history: (context) => const HistoryScreen(),
+    '/profile': (context) => const ProfileScreen(),
+    '/edit-profile': (context) => const EditProfileScreen(),
     // TODO: Add your other routes here
   };
 }
