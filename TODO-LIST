@@ -12,7 +12,7 @@ Routing (1): user_routes.dart
 Catatan: kalau autentikasi pakai Supabase Auth UI, beberapa screen bisa dipangkas.
 
 2) Alamat (Address) 
-TODO list 
+PROGRESS  
 
 9–11 file (lebih sederhana)
 
@@ -22,7 +22,7 @@ Presentation (2–3): address_list_screen.dart, address_form_screen.dart, widget
 Routing (1): address_routes.dart
 
 3) Merchant
-TODO 
+CHECK 
 
 12–16 file (fitur penuh)
 
@@ -34,7 +34,7 @@ Routing (1): merchant_routes.dart
 
 CATALOG
 4) Kategori
-TODO
+PROGRESS
 
 10–12 file
 
@@ -87,7 +87,7 @@ Presentation (4–5): order_list_screen.dart, order_detail_screen.dart, widgets/
 Routing (1): order_routes.dart
 
 9) OrderItem (subfitur Order)
-
+TODO 
 Biasanya digabung ke Order. Jika dipisah: 6–8 file
 Data (2–3): order_item_model.dart, order_item_mapper.dart*, (repo sering tidak perlu terpisah; CRUD via order_repository sebagai embedded list)
 Application (2–3): order_item_vm.dart* (untuk add/remove dalam form/checkout)
