@@ -144,8 +144,9 @@ class _AccountPageState extends State<AccountPage> {
                           children: [
                             CircleAvatar(
                               radius: 32,
-                              backgroundImage:
-                                  _avatarUrl != null ? NetworkImage(_avatarUrl!) : null,
+                              backgroundImage: _avatarUrl != null
+                                  ? NetworkImage(_avatarUrl!)
+                                  : null,
                               child: _avatarUrl == null
                                   ? const Icon(Icons.person, size: 32)
                                   : null,
@@ -155,9 +156,13 @@ class _AccountPageState extends State<AccountPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(user?.email ?? '-', style: const TextStyle(fontWeight: FontWeight.w600)),
+                                  Text(user?.email ?? '-',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600)),
                                   const SizedBox(height: 4),
-                                  Text('User ID: ${user?.id ?? '-'}', style: const TextStyle(color: Colors.grey)),
+                                  Text('User ID: ${user?.id ?? '-'}',
+                                      style:
+                                          const TextStyle(color: Colors.grey)),
                                 ],
                               ),
                             ),
@@ -199,7 +204,8 @@ class _AccountPageState extends State<AccountPage> {
                           ),
                         ),
                         const SizedBox(height: 32),
-                        const Text('Keamanan', style: TextStyle(fontWeight: FontWeight.w600)),
+                        const Text('Keamanan',
+                            style: TextStyle(fontWeight: FontWeight.w600)),
                         const SizedBox(height: 8),
                         ListTile(
                           contentPadding: EdgeInsets.zero,
@@ -211,17 +217,22 @@ class _AccountPageState extends State<AccountPage> {
                             try {
                               await _sb.auth.resetPasswordForEmail(
                                 user!.email!,
-                                redirectTo: 'io.pedulipangan.app://reset-callback/',
+                                redirectTo:
+                                    'io.pedulipangan.app://reset-callback/',
                               );
                               if (mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Email reset password dikirim')),
+                                  const SnackBar(
+                                      content:
+                                          Text('Email reset password dikirim')),
                                 );
                               }
                             } catch (e) {
                               if (mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Gagal mengirim email: $e')),
+                                  SnackBar(
+                                      content:
+                                          Text('Gagal mengirim email: $e')),
                                 );
                               }
                             }

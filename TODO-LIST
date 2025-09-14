@@ -12,7 +12,7 @@ Routing (1): user_routes.dart
 Catatan: kalau autentikasi pakai Supabase Auth UI, beberapa screen bisa dipangkas.
 
 2) Alamat (Address) 
-TODO list 
+CHECK  
 
 9–11 file (lebih sederhana)
 
@@ -22,25 +22,25 @@ Presentation (2–3): address_list_screen.dart, address_form_screen.dart, widget
 Routing (1): address_routes.dart
 
 3) Merchant
-TODO 
+CHECK 
 
 12–16 file (fitur penuh)
 
 Data (4–5): merchant_model.dart, merchant_repository.dart, merchant_repository_supabase.dart, merchant_mapper.dart*, merchant_realtime_source.dart*
 Application (4–5): merchant_list_vm.dart, merchant_detail_vm.dart, merchant_form_vm.dart, merchant_filters.dart*, merchant_state.dart*
-Presentation (3–4): merchant_list_screen.dart, merchant_detail_screen.dart, merchant_form_screen.dart, widgets/merchant_card.dart*
+Presentation (3–4): merchant_list_screen.dart, merchant_detail_screen.dart, merchant_form_screen.dart, widgets/merchant_card.dart* // STOPPED
 Routing (1): merchant_routes.dart
 
 
 CATALOG
 4) Kategori
-TODO
+CHECK
 
 10–12 file
 
 Data (3–4): category_model.dart, category_repository.dart, category_repository_supabase.dart, category_mapper.dart*
 Application (3–4): category_list_vm.dart, category_form_vm.dart, category_state.dart*
-Presentation (3–4): category_list_screen.dart, category_form_screen.dart, widgets/category_chip.dart*
+Presentation (3–4): category_list_screen.dart, category_form_screen.dart, widgets/category_chip.dart* // 
 Routing (1): category_routes.dart
 
 5) Produk (Product)
@@ -87,7 +87,7 @@ Presentation (4–5): order_list_screen.dart, order_detail_screen.dart, widgets/
 Routing (1): order_routes.dart
 
 9) OrderItem (subfitur Order)
-
+TODO 
 Biasanya digabung ke Order. Jika dipisah: 6–8 file
 Data (2–3): order_item_model.dart, order_item_mapper.dart*, (repo sering tidak perlu terpisah; CRUD via order_repository sebagai embedded list)
 Application (2–3): order_item_vm.dart* (untuk add/remove dalam form/checkout)
